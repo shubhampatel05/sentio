@@ -1,0 +1,44 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Datasets and audio files
+dataset/
+datasets/
+data/
+*.wav
+*.mp3
+*.ogg
+*.flac
+
+# Download archives and raw extracted audio
+downloads/*.zip
+downloads/ravdess_extracted/
+downloads/ravdess_raw/
+downloads/sample/
+*.zip
+*.tar
+*.tar.gz
+
+# Model checkpoints & temporary files
+*.pt
+*.pth
+*.h5
+*.pkl
+
+# Logs & OS files
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.idea/
+.vscode/

@@ -1,0 +1,119 @@
+SENTIO MODEL TRAINING - SETUP GUIDE
+====================================
+
+WHAT YOU NEED:
+--------------
+[OK] Training script ready (train_model_improved.py)
+[OK] Organization script ready (prepare_dataset.py)
+[OK] Dataset folders created (dataset/)
+[!!] Need to download dataset
+
+
+HOW TO GET STARTED:
+============================
+
+RECOMMENDED: Manual Browser Download
+------------------------------------
+The automated download keeps timing out. Browser downloads are more reliable.
+
+1. Open your web browser
+2. Go to: https://zenodo.org/record/1188976
+3. Click "Audio_Speech_Actors_01-24.zip" (215.4 MB)
+4. Save to: D:\voice-emotion\sentio\downloads\
+5. After download completes, run:
+
+   python process_and_train.py
+
+   This will automatically:
+   - Extract the dataset
+   - Organize into emotion folders
+   - Train the model (5-10 minutes)
+   - Save model.joblib
+
+
+ALTERNATIVE: Use Kaggle
+-----------------------
+Often has faster servers.
+
+1. pip install kaggle
+2. Get API key from: https://www.kaggle.com/settings
+3. Save kaggle.json to: C:\Users\shubh\.kaggle\
+4. Run: kaggle datasets download -d uwrfkaggler/ravdess-emotional-speech-audio
+5. Run: python process_and_train.py
+
+
+QUICK TEST: Smaller Sample Dataset
+-----------------------------------
+Test the system with just 5 actors (50MB instead of 200MB)
+
+Download these individually:
+- https://zenodo.org/record/1188976/files/Actor_01.zip
+- https://zenodo.org/record/1188976/files/Actor_02.zip
+- https://zenodo.org/record/1188976/files/Actor_03.zip
+- https://zenodo.org/record/1188976/files/Actor_04.zip
+- https://zenodo.org/record/1188976/files/Actor_05.zip
+
+Extract to: downloads/sample/
+Run: python prepare_dataset.py --source downloads/sample --output ./dataset --format ravdess
+Train: python train_model_improved.py --data ./dataset --out model.joblib
+
+
+EXPECTED RESULTS:
+=================
+
+With full RAVDESS (24 actors, 1440 files):
+- Test Accuracy: 70-80%
+- Training Time: 5-10 minutes
+- This is GOOD accuracy for emotion recognition
+
+With 5 actors sample (300 files):
+- Test Accuracy: 50-60%
+- Training Time: 1-2 minutes
+- Good enough to test the system
+
+
+AFTER TRAINING:
+===============
+
+1. Check model.joblib exists in main folder
+2. python app.py
+3. Open http://127.0.0.1:5000
+4. Record your voice with different emotions
+5. Results will show "source: trained_model"
+
+
+KEY FILES:
+==========
+
+process_and_train.py - One-command setup after downloading dataset
+train_model_improved.py - Training script with detailed metrics
+prepare_dataset.py - Organizes downloaded data automatically
+dataset/ - Empty folders ready for audio files
+
+
+TROUBLESHOOTING:
+================
+
+Q: Download keeps failing?
+A: Use browser download manager, it handles resume better
+
+Q: ZIP corrupted error?
+A: Delete downloads/ravdess.zip and download fresh
+
+Q: Need 500MB free disk space
+A: 200MB for zip + 300MB extracted
+
+Q: Training too slow?
+A: Use --n-estimators 200 for faster (slightly less accurate)
+
+Q: Low accuracy?
+A: 70% is actually good! Emotions are subjective.
+
+
+NEXT STEP:
+==========
+Download the dataset with your browser, then run:
+
+python process_and_train.py
+
+That's it!

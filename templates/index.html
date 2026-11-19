@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sentio — Voice Emotion Analysis</title>
+<meta name="description" content="Sentio reads pitch, pace, energy and tone to surface the emotion carried in a voice. Local, precise, explainable." />
+<meta name="theme-color" content="#121418" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500..800&family=Inter:wght@400..600&family=JetBrains+Mono:wght@400..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="static/css/style.css" />
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g-brand" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb072"/><stop offset="1" stop-color="#f2641f"/></linearGradient>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
+    <symbol id="i-wave" viewBox="0 0 24 24"><path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 10v4"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="2.5"/><circle cx="8" cy="17" r="2.5"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
+    <symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9.5h.01M15 9.5h.01"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
+  </defs>
+</svg>
+<canvas id="bg3d" class="bg3d" aria-hidden="true"></canvas>
+<div class="atmosphere" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top" aria-label="Sentio — back to top">
+      <svg class="brand-mark" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+        <rect x="3" y="8" width="3" height="8" rx="1.5"/>
+        <rect x="8.5" y="4" width="3" height="16" rx="1.5"/>
+        <rect x="14" y="2" width="3" height="20" rx="1.5"/>
+        <rect x="19.5" y="7" width="3" height="10" rx="1.5"/>
+      </svg>
+      <span class="brand-name">Sentio</span>
+    </a>
+    <nav class="topnav" aria-label="Primary">
+      <a href="#capture">Capture</a>
+      <a href="#how">How it works</a>
+      <span class="chip"><i class="led"></i>Local processing</span>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ INTRO ============ -->
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Voice emotion analysis</p>
+      <h1>Underneath what you say, <span class="accent">there’s a signal.</span></h1>
+      <p class="lead">
+        Sentio listens past the words — reading pitch, pace, energy, and tone the way a sound
+        engineer reads a waveform — to surface the emotion carried underneath.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary btn-lg" href="#capture">Start a reading<svg class="icon icon-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <span class="hero-note mono">Live mic · WAV · FLAC · OGG</span>
+      </div>
+    </div>
+
+    <aside class="spec glass" aria-label="Analysis engine specifications">
+      <div class="card-head">
+        <span class="label mono">Analysis engine</span>
+        <span class="chip"><i class="led"></i>Ready</span>
+      </div>
+      <dl>
+        <div class="spec-row"><dt><svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg>Input</dt><dd>Microphone · file</dd></div>
+        <div class="spec-row"><dt><svg class="icon" aria-hidden="true"><use href="#i-wave"/></svg>Sample rate</dt><dd>22.05 kHz</dd></div>
+        <div class="spec-row"><dt><svg class="icon" aria-hidden="true"><use href="#i-sliders"/></svg>Features</dt><dd>F0 · RMS · 13 MFCC · spectral</dd></div>
+        <div class="spec-row"><dt><svg class="icon" aria-hidden="true"><use href="#i-target"/></svg>Output</dt><dd>8 emotions · 3 dimensions</dd></div>
+        <div class="spec-row"><dt><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>Processing</dt><dd>Local server</dd></div>
+      </dl>
+    </aside>
+  </section>
+
+  <!-- ============ CAPTURE ============ -->
+  <section class="section" id="capture" aria-labelledby="capture-title">
+    <header class="section-head" data-reveal>
+      <p class="eyebrow">01 — Capture</p>
+      <h2 id="capture-title">Take a reading</h2>
+      <p class="section-sub">Speak for a few seconds — a full sentence gives a clean read — or drop in a recording.</p>
+    </header>
+
+    <div class="capture-card glass" id="capture-card" data-state="idle" data-reveal>
+      <div class="card-head">
+        <span class="label mono">Input · CH 01</span>
+        <span class="state-chip" role="status" aria-live="polite"><i class="led"></i><span id="state-text">Standby</span></span>
+      </div>
+
+      <div class="capture-body">
+        <div class="transport">
+          <div class="transport-glow" aria-hidden="true"></div>
+          <button id="record-btn" class="record-btn" type="button" aria-label="Start recording" aria-pressed="false">
+            <span class="ring"></span><span class="ring ring-2"></span>
+            <svg class="icon-mic" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8.5 21h7"/>
+            </svg>
+            <svg class="icon-stop" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+              <rect x="6" y="6" width="12" height="12" rx="2.5" fill="currentColor"/>
+            </svg>
+          </button>
+          <div class="readout-time">
+            <span id="timer" class="timer mono">00:00</span>
+            <span id="status-label" class="transport-label">Press to record</span>
+          </div>
+          <div class="level" id="level-meter" aria-hidden="true"></div>
+        </div>
+
+        <div class="scope">
+          <canvas id="scope" role="img" aria-label="Waveform of the captured audio"></canvas>
+          <span class="axis mono axis-top" aria-hidden="true">+1</span>
+          <span class="axis mono axis-mid" aria-hidden="true">0</span>
+          <span class="axis mono axis-bot" aria-hidden="true">−1</span>
+        </div>
+      </div>
+
+      <label class="dropzone" id="dropzone">
+        <input type="file" id="file-input" class="sr-only" accept=".wav,.flac,.ogg,audio/wav,audio/x-wav,audio/flac,audio/x-flac,audio/ogg" />
+        <span class="dz-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0-4 4m4-4 4 4M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+        </span>
+        <span class="dz-text">
+          <strong>Drop an audio file here</strong>
+          <span>or click to browse</span>
+        </span>
+        <span class="dz-types mono"><b>.wav</b><b>.flac</b><b>.ogg</b></span>
+      </label>
+
+      <div class="card-foot">
+        <p class="source mono" id="source-readout">No source loaded</p>
+        <button id="analyze-btn" class="btn btn-primary" type="button" disabled>
+          <span id="analyze-label">Analyze reading</span><svg class="icon icon-arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </button>
+      </div>
+
+      <p id="error-msg" class="error-msg" role="alert" hidden></p>
+    </div>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section class="section results" id="results" aria-labelledby="results-title" hidden>
+    <header class="section-head" data-reveal>
+      <p class="eyebrow">02 — Reading</p>
+      <h2 id="results-title">Your reading</h2>
+      <p class="section-sub" id="results-source"></p>
+    </header>
+
+    <div class="dominant glass" id="dominant-card">
+      <div class="dominant-glow" aria-hidden="true"></div>
+      <div class="dominant-main">
+        <span class="label mono">Dominant emotion</span>
+        <span class="dominant-name" id="dominant-label">—</span>
+        <p class="dominant-caption" id="dominant-caption"></p>
+      </div>
+      <div class="dominant-conf">
+        <span class="label mono">Share of score</span>
+        <span class="conf-value mono"><span id="dominant-pct">0</span><small>%</small></span>
+        <span class="margin mono" id="dominant-margin"></span>
+      </div>
+    </div>
+
+    <div class="results-grid">
+      <div class="card glass spread">
+        <div class="card-head">
+          <span class="label mono">Probability spread</span>
+          <span class="label mono">8 classes</span>
+        </div>
+        <div class="spread-rows" id="spread-rows"></div>
+        <div class="spread-scale mono" aria-hidden="true">
+          <span></span>
+          <div class="scale-labels">
+            <span class="t0">0</span><span class="t25">25</span><span class="t50">50</span><span class="t75">75</span><span class="t100">100%</span>
+          </div>
+          <span></span>
+        </div>
+      </div>
+
+      <div class="stack">
+        <div class="card glass dims" id="dims-card">
+          <div class="card-head">
+            <span class="label mono">Affective dimensions</span>
+          </div>
+
+          <div class="dim">
+            <div class="dim-head"><span class="dim-name"><svg class="icon" aria-hidden="true"><use href="#i-activity"/></svg>Arousal</span><span class="dim-val mono"><span id="val-arousal">—</span><small>%</small></span></div>
+            <p class="dim-desc">How activated the voice sounds.</p>
+            <div class="dim-track"><div class="dim-fill dim-arousal" id="fill-arousal"></div><div class="dim-thumb" id="thumb-arousal"></div></div>
+            <div class="dim-scale mono"><span>Calm</span><span>Activated</span></div>
+          </div>
+
+          <div class="dim">
+            <div class="dim-head"><span class="dim-name"><svg class="icon" aria-hidden="true"><use href="#i-smile"/></svg>Valence</span><span class="dim-val mono"><span id="val-valence">—</span><small>%</small></span></div>
+            <p class="dim-desc">How positive the tone is.</p>
+            <div class="dim-track"><div class="dim-fill dim-valence" id="fill-valence"></div><div class="dim-thumb" id="thumb-valence"></div></div>
+            <div class="dim-scale mono"><span>Negative</span><span>Positive</span></div>
+          </div>
+
+          <div class="dim">
+            <div class="dim-head"><span class="dim-name"><svg class="icon" aria-hidden="true"><use href="#i-zap"/></svg>Tension</span><span class="dim-val mono"><span id="val-tension">—</span><small>%</small></span></div>
+            <p class="dim-desc">How strained or tight it sounds.</p>
+            <div class="dim-track"><div class="dim-fill dim-tension" id="fill-tension"></div><div class="dim-thumb" id="thumb-tension"></div></div>
+            <div class="dim-scale mono"><span>Relaxed</span><span>Tense</span></div>
+          </div>
+
+          <p class="dims-note" id="dims-note" hidden>Dimensions are only produced by the built-in heuristic engine, not by a trained classifier.</p>
+        </div>
+
+        <div class="card glass meters">
+          <div class="card-head">
+            <span class="label mono">Voice metering</span>
+            <span class="label mono" id="meter-duration"></span>
+          </div>
+          <div class="meter-scope"><canvas id="meter-wave" role="img" aria-label="Waveform envelope of the analyzed audio"></canvas></div>
+          <div class="readouts" id="readouts"></div>
+        </div>
+      </div>
+    </div>
+
+    <button id="reset-btn" class="btn btn-ghost" type="button">Take another reading</button>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="section" id="how" aria-labelledby="how-title">
+    <header class="section-head" data-reveal>
+      <p class="eyebrow">The pipeline</p>
+      <h2 id="how-title">The signal chain</h2>
+    </header>
+
+    <div class="chain">
+      <div class="stage glass" data-reveal>
+        <span class="stage-icon" aria-hidden="true"><svg class="icon"><use href="#i-mic"/></svg></span>
+        <span class="label mono accent-label">Stage 01</span>
+        <h3>Input</h3>
+        <p>Your microphone is sampled in the browser and encoded to raw PCM — no compression, no lost detail.</p>
+      </div>
+      <div class="stage glass" data-reveal>
+        <span class="stage-icon" aria-hidden="true"><svg class="icon"><use href="#i-sliders"/></svg></span>
+        <span class="label mono accent-label">Stage 02</span>
+        <h3>Feature extraction</h3>
+        <p>Python and librosa pull out pitch (F0), energy, spectral brightness, tempo, and 13 MFCCs — the features phoneticians use to describe a voice.</p>
+      </div>
+      <div class="stage glass" data-reveal>
+        <span class="stage-icon" aria-hidden="true"><svg class="icon"><use href="#i-target"/></svg></span>
+        <span class="label mono accent-label">Stage 03</span>
+        <h3>Affective scoring</h3>
+        <p>Features are mapped onto arousal, valence, and tension, then compared against eight reference emotions.</p>
+      </div>
+      <div class="stage glass" data-reveal>
+        <span class="stage-icon" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>
+        <span class="label mono accent-label">Stage 04</span>
+        <h3>Reading</h3>
+        <p>The closest match becomes your dominant reading, shown alongside the full spread — not just a single guess.</p>
+      </div>
+    </div>
+
+    <p class="method-note" data-reveal>
+      Built on classical acoustic features mapped to affective dimensions by an explainable scoring model.
+      Scores are relative shares across the eight classes, not calibrated probabilities. A trained
+      classifier can be swapped in without changing the pipeline — see <code>train_model.py</code>.
+    </p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <span class="brand-name">Sentio</span>
+  <span class="mono">Voice emotion analysis, run locally.</span>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="static/js/backdrop.js"></script>
+<script src="static/js/recorder.js"></script>
+<script src="static/js/main.js"></script>
+<script src="static/js/fx.js"></script>
+</body>
+</html>
